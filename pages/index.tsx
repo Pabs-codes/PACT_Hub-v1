@@ -114,10 +114,9 @@ const Home: React.FC<Props> = ({ products }) => {
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 lg:gap-x-12 gap-y-6 mb-10 app-x-padding">
-            <Card key={currentItems[1].id} item={currentItems[1]} />
-            <Card key={currentItems[2].id} item={currentItems[2]} />
-            <Card key={currentItems[3].id} item={currentItems[3]} />
-            <Card key={currentItems[4].id} item={currentItems[4]} />
+            {currentItems?.map((item, index) => (
+              index < 4 && <Card key={item.id} item={item} />
+            ))}
           </div>
         </section>
 
@@ -171,7 +170,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/products?order_by=createdAt.desc&limit=10`
   );
   const fetchedProducts = res.data;
-  fetchedProducts.data.forEach((product: apiProductsType) => {
+  console.log(fetchedProducts);
+  fetchedProducts.data?.forEach((product: apiProductsType) => {
     products = [
       ...products,
       {

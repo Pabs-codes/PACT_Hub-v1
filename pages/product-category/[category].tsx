@@ -133,14 +133,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const res = await axios.get(reqUrl);
 
-  const fetchedProducts = res.data.data.map((product: apiProductsType) => ({
+  const fetchedProducts = res.data?.map((product: apiProductsType) => ({
     ...product,
     img1: product.image1,
     img2: product.image2,
   }));
 
   let items: apiProductsType[] = [];
-  fetchedProducts.forEach((product: apiProductsType) => {
+  fetchedProducts?.forEach((product: apiProductsType) => {
     items.push(product);
   });
 
